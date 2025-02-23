@@ -12,6 +12,8 @@ function initMenu() {
     bmode = mode;
     mode = "menu";
     mmode = "t";
+    tmode = 0;
+    nmode = 0;
     $("#nmenul").text("");
     $("#nmenur").text("");
     $("#menu").show();
