@@ -42,8 +42,10 @@ function wmapEvent(ny, nx) {
     wmap.step += 1;
 
     if (evt == 'd') {
-        console.log("毒の沼地だ！");
+        console.log("毒の沼地だ！")
+        player.h -= 1;
         evt = 'e';
+        console.log(`残りHP: ${player.h}`)
     }
 
     if (evt == 'e') {
