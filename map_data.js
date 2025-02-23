@@ -85,7 +85,6 @@ const WORLD_MAP = [
 const world_map = [];
 const world_evt = [];
 function initMap() {
-    console.log('init map');
     for (row of WORLD_MAP) {
         const result = [];
         const e_result = [];

@@ -1,4 +1,4 @@
-const wmap = { x: 20, y: 20 };
+const wmap = { x: 20, y: 20, step: 0 };
 const HSIZE = 17
 
 function wmapInit() {
@@ -30,13 +30,20 @@ function wmapController() {
 
 function wmapEvent(ny, nx) {
     /* 移動先の座標に応じたイベント */
-    if (world_evt[ny][nx] == 'x') {
+    evt = world_evt[ny][nx]
+    if (evt == 'x') {
         cantgo();
         return;
     }
+
     wmap.x = nx;
     wmap.y = ny;
     wmapDraw();
+    wmap.step += 1;
+
+    if (evt == 'e') {
+        encount();
+    }
 }
 
 function wmapDraw() {
