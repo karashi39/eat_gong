@@ -1,5 +1,5 @@
 let mode = 'wmap';
-let bmode = "";
+let sbmode = "";
 
 function init_game() {
     /* 画面ロード時の処理 */
@@ -10,14 +10,14 @@ function init_game() {
 }
 
 function smsg(msg) {
-    bmode = mode;
+    sbmode = mode;
     mode = "sys";
     $("#system").text(msg);
     $("#system").show();
 }
 function smsgClose() {
-    mode = bmode;
-    bmode = "";
+    mode = sbmode;
+    sbmode = "";
     $("#system").text("");
     $("#system").hide();
 }

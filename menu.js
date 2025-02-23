@@ -1,4 +1,5 @@
 let mmode = "t";
+let bmode = "";
 let tmode = 0;
 let nmode = 0;
 
