@@ -5,23 +5,27 @@ function wmapInit() {
     wmapDraw();
 }
 
-function wmapController() {
+function wmapController(key) {
     /* world_mapにいる時のコントローラー */
     let ny = wmap.y;
     let nx = wmap.x;
-    switch(event.which) {
-        case 37: // left
+    switch(key) {
+        case "l":
             nx = wmap.x - 1;
             break;
-        case 38: // up
+        case "u":
             ny = wmap.y - 1;
             break;
-        case 39: // right
+        case "r":
             nx = wmap.x + 1;
             break;
-        case 40: // down
+        case "d":
             ny = wmap.y + 1;
             break;
+        case "e":
+        case "s":
+            initMenu();
+            return;
         default:
             break;
     }
