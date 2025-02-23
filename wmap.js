@@ -30,7 +30,7 @@ function wmapController() {
 
 function wmapEvent(ny, nx) {
     /* 移動先の座標に応じたイベント */
-    evt = world_evt[ny][nx]
+    let evt = world_evt[ny][nx]
     if (evt == 'x') {
         cantgo();
         return;
@@ -40,6 +40,11 @@ function wmapEvent(ny, nx) {
     wmap.y = ny;
     wmapDraw();
     wmap.step += 1;
+
+    if (evt == 'd') {
+        console.log("毒の沼地だ！");
+        evt = 'e';
+    }
 
     if (evt == 'e') {
         encount();
