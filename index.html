@@ -6,23 +6,43 @@
     <title>Eat Gong</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <style>
+        .container {
+            position: relative;
+            width: 620px;
+            height: 700px;
+        }
         #gamen {
+            position: absolute;
+            top: 0;
+            left: 0;
             font-size: 15px;
-            margin-top: 20px;
             white-space: pre;
             background-color: black;
-            width: 44rem;
-            height: 49rem;
+            width: 100%;
+            height: 100%;
+        }
+        #system {
+            position: absolute;
+            top: 250px;
+            left: 0;
+            width: 100%;
+            height: 220px;
+            background-color: black;
+            color:white;
         }
     </style>
 </head>
 <body>
-    <div id="gamen"></div>
     <script src="player_status.js"></script>
     <script src="se.js"></script>
     <script src="map_data.js"></script>
     <script src="encount.js"></script>
     <script src="wmap.js"></script>
     <script src="main.js"></script>
+
+    <div class="container">
+        <div id="gamen"></div>
+        <div id="system"> </div>
+    </div>
 </body>
 </html>
