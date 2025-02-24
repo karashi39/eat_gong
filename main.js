@@ -6,6 +6,7 @@ class Data {
 }
 
 D = new Data();
+battle = new Battle();
 const SELECTOR = "▶︎";
 
 /* 画面ロード時の処理 */
@@ -106,7 +107,7 @@ function controller(key) {
             menuController(key);
             break;
         case "battle":
-            battleController(key);
+            battle.controller(key);
             break;
         default:
             break;

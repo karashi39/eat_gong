@@ -1,4 +1,4 @@
-const wmap = { x: 20, y: 20, step: 0 };
+const wmap = { x: 20, y: 20};
 const HSIZE = 15
 
 function wmapInit() {
@@ -43,7 +43,6 @@ function wmapEvent(ny, nx) {
     wmap.x = nx;
     wmap.y = ny;
     wmapDraw();
-    wmap.step += 1;
 
     if (evt == 'd') {
         console.log("毒の沼地だ！");
@@ -52,7 +51,7 @@ function wmapEvent(ny, nx) {
     }
 
     if (evt == 'e') {
-        encount();
+        battle.encount();
     }
 
     check_player();
