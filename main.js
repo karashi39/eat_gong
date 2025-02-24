@@ -5,11 +5,12 @@ class Game {
         this.yn = new Yn();
         this.player = new Player();
         this.battle = new Battle();
+        this.wmap = new Map(world_map, world_evt);
     }
 
     init() {
         initMap();
-        wmapInit();
+        this.wmap.init();
     }
 
     over() {

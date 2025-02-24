@@ -27,7 +27,7 @@ class Controller {
 
         switch(this.state) {
             case "map":
-                wmapController(key, game);
+                game.wmap.controller(key, game);
                 break;
             case "menu":
                 menuController(key, game);
