@@ -54,7 +54,7 @@ function wmapEvent(ny, nx) {
         battle.encount();
     }
 
-    check_player();
+    player.check();
 }
 
 function wmapDraw() {

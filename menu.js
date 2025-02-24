@@ -72,10 +72,10 @@ function initNMenu() {
             break;
         case 1:
             mmode = "z"
-            NMENU = getPlayerInfo();
+            NMENU = player.param_list();
             break;
         case 2:
-            NMENU = getPlayerJumon();
+            NMENU = player.jumon_list();
             if (NMENU.length === 0) {
                 smsg("つかえる呪文を覚えていない！");
             }

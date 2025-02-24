@@ -27,13 +27,19 @@ class Battle {
     judge() {
         if (true) {
             $("#enemy").text("");
-            smsg(this.e.name + "をたおした！");
+            smsg(this.e.name + "をたおした！\n" + this.e.e + "のけいけんちと" + this.e.g + "ゴールドをかくとく");
+            this.win();
             D.next = () => {
                 $("#battle").hide();
                 $("#enemy").hide();
                 D.ctl = 'map';
             }
         }
+    }
+
+    win() {
+        player.param.e += this.e.e;
+        player.param.g += this.e.g;
     }
 
     battleController(key) {

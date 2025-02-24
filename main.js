@@ -7,6 +7,7 @@ class Data {
 
 D = new Data();
 battle = new Battle();
+player = new Player();
 const SELECTOR = "▶︎";
 
 /* 画面ロード時の処理 */
@@ -86,6 +87,13 @@ function ynController(key) {
         default:
             break;
     }
+}
+
+/* gameover */
+function gameover() {
+    $("#system").show();
+    $("#system").text("ゆうしゃはしんでしまった！");
+    D.ctl = "go";
 }
 
 /* モードに応じてコントローラーの対象を変える*/
