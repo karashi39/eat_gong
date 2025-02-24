@@ -2,44 +2,44 @@ class Battle {
     e;
     step = 0;
 
-    encount() {
+    encount(game) {
         this.step += 1;
         if ((this.step * 0.01) < Math.random()) {
             return;
         }
         this.step = 0;
-        battle.init();
+        this.init(game);
     }
 
-    init() {
-        D.ctl = 'battle';
+    init(game) {
+        game.controller.state = 'battle';
         this.e = ENEMY[Math.floor(Math.random() * (ENEMY.length -1))];
         $("#enemy").text(this.e.image);
         $("#battle").show();
         $("#enemy").show();
 
-        sys.init(this.e.name + "があらわれた！");
-        sys.next = () => {
-            this.judge();
+        game.sys.init(this.e.name + "があらわれた！");
+        game.sys.next = () => {
+            this.judge(game);
         }
     }
 
-    judge() {
+    judge(game) {
         if (true) {
             $("#enemy").text("");
-            sys.init(this.e.name + "をたおした！\n" + this.e.e + "のけいけんちと" + this.e.g + "ゴールドをかくとく");
-            this.win();
-            sys.next = () => {
+            game.sys.init(this.e.name + "をたおした！\n" + this.e.e + "のけいけんちと" + this.e.g + "ゴールドをかくとく");
+            this.win(game);
+            game.sys.next = () => {
                 $("#battle").hide();
                 $("#enemy").hide();
-                D.ctl = 'map';
+                game.controller.state = 'map';
             }
         }
     }
 
-    win() {
-        player.param.e += this.e.e;
-        player.param.g += this.e.g;
+    win(game) {
+        game.player.param.e += this.e.e;
+        game.player.param.g += this.e.g;
     }
 
     controller(key) {

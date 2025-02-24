@@ -5,7 +5,7 @@ function wmapInit() {
     wmapDraw();
 }
 
-function wmapController(key) {
+function wmapController(key, game) {
     /* world_mapにいる時のコントローラー */
     let ny = wmap.y;
     let nx = wmap.x;
@@ -24,15 +24,15 @@ function wmapController(key) {
             break;
         case "e":
         case "s":
-            initMenu();
+            initMenu(game);
             return;
         default:
             break;
     }
-    wmapEvent(ny, nx);
+    wmapEvent(ny, nx, game);
 }
 
-function wmapEvent(ny, nx) {
+function wmapEvent(ny, nx, game) {
     /* 移動先の座標に応じたイベント */
     let evt = world_evt[ny][nx]
     if (evt == 'x') {
@@ -46,15 +46,15 @@ function wmapEvent(ny, nx) {
 
     if (evt == 'd') {
         console.log("毒の沼地だ！");
-        player.h -= 1;
+        game.player.h -= 1;
         evt = 'e';
     }
 
     if (evt == 'e') {
-        battle.encount();
+        game.battle.encount(game);
     }
 
-    player.check();
+    game.player.check();
 }
 
 function wmapDraw() {

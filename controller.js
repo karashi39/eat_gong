@@ -7,28 +7,36 @@ const KEY = {
     k13: "e",
 };
 
-function controller(code) {
-    key = KEY["k" + code];
-    if (sys.state !== null) {
-        sys.controller(key);
-        return;
-    }
-    if (yn.state !== null) {
-        yn.controller(key);
-        return;
+class Controller {
+    state;
+
+    constructor() {
+        this.state = "map";
     }
 
-    switch(D.ctl) {
-        case "map":
-            wmapController(key);
-            break;
-        case "menu":
-            menuController(key);
-            break;
-        case "battle":
-            battle.controller(key);
-            break;
-        default:
-            break;
+    input(code, game) {
+        const key = KEY["k" + code];
+        if (game.sys.state !== null) {
+            game.sys.controller(key);
+            return;
+        }
+        if (game.yn.state !== null) {
+            game.yn.controller(key);
+            return;
+        }
+
+        switch(this.state) {
+            case "map":
+                wmapController(key, game);
+                break;
+            case "menu":
+                menuController(key, game);
+                break;
+            case "battle":
+                game.battle.controller(key, game);
+                break;
+            default:
+                break;
+        }
     }
 }

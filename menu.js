@@ -7,8 +7,8 @@ const TMENU = ["しらべる","つよさ","じゅもん"];
 let NMENU = [];
 const SMENU = ["ここ", "うえ", "みぎ", "ひだり", "した"];
 
-function initMenu() {
-    D.ctl = "menu";
+function initMenu(game) {
+    game.controller.state = "menu";
     mmode = "t";
     tmode = 0;
     nmode = 0;
@@ -18,8 +18,8 @@ function initMenu() {
     tmenuDraw();
 }
 
-function closeMenu() {
-    D.ctl = 'map';
+function closeMenu(game) {
+    game.controller.state = 'map';
     $("#menu").hide();
 }
 
@@ -62,7 +62,7 @@ function nmenuDraw() {
     $("#nmenul").text(contentl)
 }
 
-function initNMenu() {
+function initNMenu(game) {
     $("#nmenul").text("");
     $("#nmenur").text("");
     switch(tmode) {
@@ -72,12 +72,12 @@ function initNMenu() {
             break;
         case 1:
             mmode = "z"
-            NMENU = player.param_list();
+            NMENU = game.player.param_list();
             break;
         case 2:
-            NMENU = player.jumon_list();
+            NMENU = game.player.jumon_list();
             if (NMENU.length === 0) {
-                sys.init("つかえる呪文を覚えていない！");
+                game.sys.init("つかえる呪文を覚えていない！");
             }
             break;
         default:
@@ -86,22 +86,22 @@ function initNMenu() {
     nmenuDraw();
 }
 
-function menuController(key) {
+function menuController(key, game) {
     switch(mmode) {
         case "t":
-            tmenuController(key);
+            tmenuController(key, game);
             break;
         case "s":
         case "z":
         case "j":
-            nmenuController(key);
+            nmenuController(key, game);
             break;
         default:
             break;
     }
 }
 
-function tmenuController(key) {
+function tmenuController(key, game) {
     switch(key) {
         case "d":
             tmode += 1;
@@ -115,18 +115,18 @@ function tmenuController(key) {
             break;
         case "r":
         case "e":
-            initNMenu();
+            initNMenu(game);
             break;
         case "s":
         case "l":
-            closeMenu();
+            closeMenu(game);
             return;
         default:
             break;
     }
 }
 
-function nmenuController(key) {
+function nmenuController(key, game) {
     switch(key) {
         case "d":
             nmode += 1;
@@ -140,7 +140,6 @@ function nmenuController(key) {
             break;
         case "r":
         case "e":
-            console.log("じっこう");
             break;
         case "s":
         case "l":
