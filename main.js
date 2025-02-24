@@ -6,6 +6,7 @@ class Game {
         this.player = new Player();
         this.battle = new Battle();
         this.wmap = new Map(world_map, world_evt);
+        this.menu = new Menu(this);
     }
 
     init() {
@@ -21,11 +22,6 @@ class Game {
 }
 
 $(document).ready(() => {
-    $("#system").hide();
-    $("#menu").hide();
-    $("#battle").hide();
-    $("#yesno").hide();
-    $("#yesnor").text("はい\nいいえ");
 
     game = new Game();
     game.init();

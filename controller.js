@@ -30,7 +30,7 @@ class Controller {
                 game.wmap.controller(key, game);
                 break;
             case "menu":
-                menuController(key, game);
+                game.menu.controller(key, game);
                 break;
             case "battle":
                 game.battle.controller(key, game);

@@ -2,6 +2,10 @@ class Battle {
     e;
     step = 0;
 
+    constructor() {
+        $("#battle").hide();
+    }
+
     encount(game) {
         this.step += 1;
         if ((this.step * 0.01) < Math.random()) {

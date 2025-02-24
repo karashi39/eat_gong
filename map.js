@@ -28,7 +28,7 @@ class Map {
                 break;
             case "e":
             case "s":
-                initMenu(game);
+                game.menu.init();
                 return;
             default:
                 break;

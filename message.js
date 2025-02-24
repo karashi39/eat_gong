@@ -3,6 +3,10 @@ class Sys {
     state = null;
     next = null;
 
+    constructor() {
+        $("#system").hide();
+    }
+
     init(msg) {
         this.state = true;
         $("#system").text(msg);
@@ -38,6 +42,11 @@ class Yn {
     yes = null;
     no = null;
 
+    constructor() {
+        $("#yesno").hide();
+        $("#yesnor").text("はい\nいいえ");
+    }
+
     init(msg) {
         this.state = true;
         this.draw();
@@ -45,6 +54,7 @@ class Yn {
         $("#system").text(msg);
         $("#system").show();
     }
+
     draw() {
         if (this.state) {
             $("#yesnol").text(SELECTOR + "\n　");
