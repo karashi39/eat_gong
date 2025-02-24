@@ -1,3 +1,2 @@
 function develop() {
-    yn("hoge");
 }

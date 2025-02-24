@@ -12,6 +12,7 @@ function init_game() {
     $("#system").hide();
     $("#menu").hide();
     $("#battle").hide();
+    $("#yesno").hide();
     $("#yesnor").text("はい\nいいえ");
     initMap();
     wmapInit();
