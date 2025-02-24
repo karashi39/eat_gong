@@ -1,8 +1,8 @@
 class Player {
     param = { l: 1, h: 20, m: 0, p: 8, d: 6, s: 4, e: 0, g: 0 };
-    check() {
+    check(game) {
         if (this.param.h <= 0) {
-            gameover();
+            game.over();
         }
     }
     param_list() {

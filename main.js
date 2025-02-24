@@ -12,7 +12,7 @@ class Game {
         wmapInit();
     }
 
-    gameover() {
+    over() {
         $("#system").show();
         $("#system").text("ゆうしゃはしんでしまった！");
         this.controller.state = "go";
@@ -21,7 +21,7 @@ class Game {
 
 const SELECTOR = "▶︎";
 
-$(document).ready(function() {
+$(document).ready(() => {
     $("#system").hide();
     $("#menu").hide();
     $("#battle").hide();
@@ -30,7 +30,7 @@ $(document).ready(function() {
 
     game = new Game();
     game.init();
-    $(document).keydown(function(event) {
+    $(document).keydown((event) => {
         game.controller.input(event.which, game);
     });
 });

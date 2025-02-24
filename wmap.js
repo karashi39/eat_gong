@@ -46,7 +46,7 @@ function wmapEvent(ny, nx, game) {
 
     if (evt == 'd') {
         console.log("毒の沼地だ！");
-        game.player.h -= 1;
+        game.player.param.h -= 1;
         evt = 'e';
     }
 
@@ -54,7 +54,7 @@ function wmapEvent(ny, nx, game) {
         game.battle.encount(game);
     }
 
-    game.player.check();
+    game.player.check(game);
 }
 
 function wmapDraw() {
