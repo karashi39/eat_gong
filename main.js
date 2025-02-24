@@ -19,8 +19,6 @@ class Game {
     }
 }
 
-const SELECTOR = "▶︎";
-
 $(document).ready(() => {
     $("#system").hide();
     $("#menu").hide();

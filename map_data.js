@@ -1,4 +1,5 @@
 const PLAYER = "😳"
+const SELECTOR = "▶︎";
 const WORLD_DICT = {a: "🟩", b: "🗻", c: "🟦", d: "🌲", e: "🟫", f: "🟨", h: "🟧", m: "🏠", w:"🟪", y:"🍙", x: "🟦"}
 const WORLD_EVT = {a: "e", b: "x", c: "x", d: "e", e: "e", f: "e", h: "e", m: "m", w: "d", y: "y", x: "x"}
 const WORLD_MAP = [
