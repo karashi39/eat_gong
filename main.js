@@ -2,24 +2,55 @@ class Data {
     ctl = 'map'; // map, menu, battle, go
     sys = false;
     yn = null;
+    next = null;
 }
 
 D = new Data();
 const SELECTOR = "▶︎";
 
 /* 画面ロード時の処理 */
-function init_game() {
+function gamenInit() {
     $("#system").hide();
     $("#menu").hide();
     $("#battle").hide();
     $("#yesno").hide();
     $("#yesnor").text("はい\nいいえ");
+}
+
+function gameInit() {
+    gamenInit();
     initMap();
     wmapInit();
     develop();
 }
 
-/* yes/no message */
+/* 読むだけのメッセージ */
+function smsg(msg) {
+    D.sys = true;
+    $("#system").text(msg);
+    $("#system").show();
+}
+async function smsgClose() {
+    return new Promise((resolve) => {
+        $("#system").text("");
+        $("#system").hide();
+        D.sys = false;
+        resolve();
+        next = D.next;
+        D.next = null;
+    }).then(() => {
+        if (next != null) {
+            next();
+        }
+    });
+}
+async function smsgController(key) {
+    if (key == 'e' || key == 's') {
+        await smsgClose();
+    }
+}
+
+/* yes no message */
 function yn(msg) {
     D.yn = true;
     ynDraw();
@@ -56,22 +87,10 @@ function ynController(key) {
     }
 }
 
-/* 読むだけのメッセージ */
-function smsg(msg) {
-    D.sys = true;
-    $("#system").text(msg);
-    $("#system").show();
-}
-function smsgClose() {
-    $("#system").text("");
-    $("#system").hide();
-    D.sys = false;
-}
-
 /* モードに応じてコントローラーの対象を変える*/
 function controller(key) {
-    if (D.sys && ["e", "s"].indexOf(key) > -1) {
-        smsgClose();
+    if (D.sys) {
+        smsgController(key);
         return;
     }
     if (D.yn !== null) {
@@ -96,7 +115,7 @@ function controller(key) {
 
 /* entry point */
 $(document).ready(function() {
-    init_game();
+    gameInit();
     $(document).keydown(function(event) {
         let key;
         switch(event.which) {
