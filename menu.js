@@ -6,11 +6,9 @@ let nmode = 0;
 const TMENU = ["しらべる","つよさ","じゅもん"];
 let NMENU = [];
 const SMENU = ["ここ", "うえ", "みぎ", "ひだり", "した"];
-const SELECTOR = "▶︎";
 
 function initMenu() {
-    bmode = mode;
-    mode = "menu";
+    D.ctl = "menu";
     mmode = "t";
     tmode = 0;
     nmode = 0;
@@ -21,8 +19,7 @@ function initMenu() {
 }
 
 function closeMenu() {
-    mode = bmode;
-    bmode = "";
+    D.ctl = 'map';
     $("#menu").hide();
 }
 

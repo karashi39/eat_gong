@@ -2,6 +2,33 @@ function encount(wmap_step) {
     if ((wmap.step * 0.01) < Math.random()) {
         return;
     }
-    console.log("敵と遭遇した！");
+    battleInit();
     wmap.step = 0;
+}
+
+function battleInit() {
+    D.ctl = 'battle';
+
+    e = ENEMY[Math.floor(Math.random() * (ENEMY.length -1))];
+    $("#enemy").text(e.image);
+    $("#battle").show();
+    $("#enemy").show();
+    smsg(e.name + "があらわれた！");
+}
+
+function battleController(key) {
+    switch(key) {
+        case "d":
+            break;
+        case "u":
+            break;
+        case "r":
+        case "e":
+            break;
+        case "s":
+        case "l":
+            return;
+        default:
+            break;
+    }
 }

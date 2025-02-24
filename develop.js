@@ -1,0 +1,3 @@
+function develop() {
+    yn("hoge");
+}

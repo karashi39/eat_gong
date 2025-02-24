@@ -9,7 +9,7 @@ function check_player() {
 function gameover() {
     $("#system").show();
     $("#system").text("ゆうしゃはしんでしまった！");
-    mode = "go";
+    D.ctl = "go";
 }
 
 function getPlayerInfo() {
