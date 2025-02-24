@@ -19,7 +19,6 @@ function battleInit() {
         $("#enemy").text("");
         smsg(e.name + "をたおした！");
         D.next = () => {
-            console.log("hoge");
             $("#battle").hide();
             $("#enemy").hide();
             D.ctl = 'map';
