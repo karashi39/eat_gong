@@ -1,13 +1,13 @@
 class Data {
     ctl = 'map'; // map, menu, battle, go
-    sys = false;
-    yn = null;
-    next = null;
 }
 
 D = new Data();
 battle = new Battle();
 player = new Player();
+sys = new Sys();
+yn = new Yn();
+
 const SELECTOR = "▶︎";
 
 /* 画面ロード時の処理 */
@@ -26,69 +26,6 @@ function gameInit() {
     develop();
 }
 
-/* 読むだけのメッセージ */
-function smsg(msg) {
-    D.sys = true;
-    $("#system").text(msg);
-    $("#system").show();
-}
-async function smsgClose() {
-    return new Promise((resolve) => {
-        $("#system").text("");
-        $("#system").hide();
-        D.sys = false;
-        resolve();
-        next = D.next;
-        D.next = null;
-    }).then(() => {
-        if (next != null) {
-            next();
-        }
-    });
-}
-async function smsgController(key) {
-    if (key == 'e' || key == 's') {
-        await smsgClose();
-    }
-}
-
-/* yes no message */
-function yn(msg) {
-    D.yn = true;
-    ynDraw();
-    $("#yesno").show();
-    $("#system").text(msg);
-    $("#system").show();
-}
-function ynDraw() {
-    if (D.yn) {
-        s = SELECTOR + "\n　";
-    } else {
-        s = "　\n" + SELECTOR;
-    }
-    $("#yesnol").text(s);
-}
-function ynClose() {
-    $("#system").text("");
-    $("#system").hide();
-    $("#yesno").hide();
-    D.yn = false;
-}
-function ynController(key) {
-    switch (key) {
-        case 'u':
-        case 'd':
-            D.yn = !D.yn;
-            ynDraw();
-            break;
-        case 'e':
-            ynClose();
-            break;
-        default:
-            break;
-    }
-}
-
 /* gameover */
 function gameover() {
     $("#system").show();
@@ -98,12 +35,12 @@ function gameover() {
 
 /* モードに応じてコントローラーの対象を変える*/
 function controller(key) {
-    if (D.sys) {
-        smsgController(key);
+    if (sys.state !== null) {
+        sys.controller(key);
         return;
     }
-    if (D.yn !== null) {
-        ynController(key);
+    if (yn.state !== null) {
+        yn.controller(key);
         return;
     }
 

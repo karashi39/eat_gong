@@ -18,8 +18,8 @@ class Battle {
         $("#battle").show();
         $("#enemy").show();
 
-        smsg(this.e.name + "があらわれた！");
-        D.next = () => {
+        sys.init(this.e.name + "があらわれた！");
+        sys.next = () => {
             this.judge();
         }
     }
@@ -27,9 +27,9 @@ class Battle {
     judge() {
         if (true) {
             $("#enemy").text("");
-            smsg(this.e.name + "をたおした！\n" + this.e.e + "のけいけんちと" + this.e.g + "ゴールドをかくとく");
+            sys.init(this.e.name + "をたおした！\n" + this.e.e + "のけいけんちと" + this.e.g + "ゴールドをかくとく");
             this.win();
-            D.next = () => {
+            sys.next = () => {
                 $("#battle").hide();
                 $("#enemy").hide();
                 D.ctl = 'map';
@@ -42,7 +42,7 @@ class Battle {
         player.param.g += this.e.g;
     }
 
-    battleController(key) {
+    controller(key) {
         switch(key) {
             case "d":
                 break;

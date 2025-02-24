@@ -77,7 +77,7 @@ function initNMenu() {
         case 2:
             NMENU = player.jumon_list();
             if (NMENU.length === 0) {
-                smsg("つかえる呪文を覚えていない！");
+                sys.init("つかえる呪文を覚えていない！");
             }
             break;
         default:
