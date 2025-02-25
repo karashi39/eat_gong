@@ -1,101 +1,85 @@
-class Sys {
-    /* 読むだけのメッセージ */
+class Sentaku {
+    data = { area: null, s_area: null, o_area: null, m_area: null };
     state = null;
     next = null;
 
-    constructor() {
-        $("#system").hide();
+    constructor(area, m_area) {
+        this.data.area = area;
+        this.data.s_area = area + "-l";
+        this.data.o_area = area + "-r";
+        this.data.m_area = m_area;
+        $(area).hide();
     }
 
-    init(msg) {
-        this.state = true;
-        $("#system").text(msg);
-        $("#system").show();
+    fina() {
+        this.state = null;
+        this.next = null;
+
+        $(this.data.area).hide();
+        $(this.data.m_area).hide();
     }
 
-    async close() {
+    init(msg, options, next=null) {
+        this.state = 0;
+        this.size = options.length;
+        this.next = next;
+
+        this.mo_draw(msg, options);
+        this.s_draw();
+
+        $(this.data.area).show();
+        $(this.data.m_area).show();
+        $(this.data.s_area).show();
+        $(this.data.o_area).show();
+    }
+
+    mo_draw(msg, options) {
+        $(this.data.o_area).text(l2s(options));
+        $(this.data.m_area).text(msg);
+    }
+
+    s_draw() {
+        const selector = Array(this.size).fill("　");
+        selector[this.state] = "▶︎";
+        $(this.data.s_area).text(l2s(selector));
+    }
+
+    async close(sentaku) {
         let next = null;
+        let state;
         return new Promise((resolve) => {
-            $("#system").text("");
-            $("#system").hide();
-            this.state = null;
-            resolve();
             next = this.next;
-            this.next = null;
+            state = this.state;
+            this.fina();
+            resolve();
         }).then(() => {
             if (next != null) {
-                next();
+                next(state);
             }
         });
     }
 
-    async controller(key) {
-        if (key == 'e' || key == 's') {
-            await this.close();
-        }
-    }
-}
-
-class Yn {
-    /* yes no message */
-    state = null;
-    yes = null;
-    no = null;
-
-    constructor() {
-        $("#yesno").hide();
-        $("#yesnor").text("はい\nいいえ");
-    }
-
-    init(msg) {
-        this.state = true;
-        this.draw();
-        $("#yesno").show();
-        $("#system").text(msg);
-        $("#system").show();
-    }
-
-    draw() {
-        if (this.state) {
-            $("#yesnol").text(SELECTOR + "\n　");
-        } else {
-            $("#yesnol").text("　\n" + SELECTOR);
-        }
-    }
-
-    async close() {
-        let yes = null;
-        let no = null;
-        return new Promise((resolve) => {
-            $("#system").text("");
-            $("#system").hide();
-            $("#yesno").hide();
-            yes = this.yes;
-            no = this.no;
-            this.yes = null;
-            this.no = null;
-            resolve();
-        }).then(() => {
-            if (yes && this.state) {
-                yes();
-            }
-            if (no && !this.state) {
-                no();
-            }
-            this.state = null;
-        });
-    }
-
-    async controller(key) {
+    async controller(key, game) {
         switch (key) {
             case 'u':
+                if (this.size -1 <= this.state) {
+                    this.state = 0 
+                } else {
+                    this.state += 1
+                }
+                this.s_draw();
+                break
             case 'd':
-                this.state = !this.state;
-                this.draw();
+                if (this.state <= 0) {
+                    this.state = this.size -1
+                } else {
+                    this.state -= 1
+                }
+                this.s_draw();
                 break;
             case 'e':
-                await this.close();
-                break;
+                await this.close(game.sentaku);
+                break; 
             default:
                 break;
         }

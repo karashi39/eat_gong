@@ -10,8 +10,11 @@ class Controller {
 
     input(code, game) {
         const key = this.data.keymap["k" + code];
-        if (game.message.state) {
+        if (game.message.state != null) {
             game.message.controller(key, game);
+        }
+        if (game.sentaku.state != null) {
+            game.sentaku.controller(key, game);
         }
     }
 }

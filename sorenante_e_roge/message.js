@@ -1,5 +1,4 @@
 class Message {
-    /* 読むだけのメッセージ */
     state = null;
     next = null;
     data = {area: null};
@@ -9,8 +8,16 @@ class Message {
         this.data.area = area;
     }
 
-    init(msg) {
+    fina() {
+        this.state = null;
+        this.next = null;
+        $(this.data.area).text("");
+        $(this.data.area).hide();
+    }
+
+    init(msg, next) {
         this.state = true;
+        this.next = next;
         $(this.data.area).text(msg);
         $(this.data.area).show();
     }
@@ -18,12 +25,9 @@ class Message {
     async close() {
         let next = null;
         return new Promise((resolve) => {
-            $(this.data.area).text("");
-            $(this.data.area).hide();
-            this.state = null;
-            resolve();
             next = this.next;
-            this.next = null;
+            this.fina();
+            resolve();
         }).then(() => {
             if (next != null) {
                 next();
