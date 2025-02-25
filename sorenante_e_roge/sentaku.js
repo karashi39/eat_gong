@@ -40,7 +40,7 @@ class Sentaku {
 
     s_draw() {
         const selector = Array(this.size).fill("　");
-        selector[this.state] = "▶︎";
+        selector[this.state] = SELECTOR;
         $(this.data.s_area).text(l2s(selector));
     }
 

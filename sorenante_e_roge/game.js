@@ -3,6 +3,7 @@ class Game {
         this.controller = new Controller();
         this.message = new Message("#message");
         this.sentaku = new Sentaku("#sentaku", "#message");
+        this.story = new Story();
 
         $("#aite").hide();
         $("#sentaku").hide();
@@ -10,17 +11,6 @@ class Game {
     }
 
     init() {
-        this.story();
-    }
-
-    story() {
-        //this.sentaku.next = (sentaku) => this.message.init("hello");
-        this.sentaku.init(
-            "こんにちは",
-            ["はい", "いいえ"],
-            (state) => {
-                this.message.init(state);
-            },
-        );
+        this.story.init(this);
     }
 }
