@@ -12,18 +12,7 @@
             height: 700px;
             background-color: black;
         }
-        #gamen {
-            position: absolute;
-            font-size: 15px;
-            white-space: pre;
-            background-color: black;
-            width: 100%;
-            height: 100%;
-        }
-        #battle {
-            justify-content: center;
-        }
-        #enemy {
+        #aite {
             position: absolute;
             top: 200px;
             left: 150px;
@@ -35,19 +24,19 @@
             margin: 3px;
             border: solid 3px white;
         }
-        #system {
+        #message {
             position: absolute;
             height: 150px;
             top: 520px;
             width: calc(100% - 10px);
             box-sizing: border-box;
         }
-        #yesno {
+        #sentaku {
             position: absolute;
             top: 400px;
             width: 70px;
         }
-        #menu {
+        #param {
             position: absolute;
             top: 0;
             display: flex;
@@ -69,30 +58,15 @@
     </style>
 </head>
 <body>
-    <script src="develop.js"></script>
-    <script src="utils.js"></script>
-    <script src="controller.js"></script>
-    <script src="player.js"></script>
     <script src="message.js"></script>
-    <script src="se.js"></script>
-    <script src="map_data.js"></script>
-    <script src="enemy.js"></script>
-    <script src="battle.js"></script>
-    <script src="menu.js"></script>
-    <script src="map.js"></script>
+    <script src="controller.js"></script>
     <script src="main.js"></script>
 
     <div class="container">
-        <div id="gamen"></div>
-        <div id="battle">
-            <div id="enemy"></div>
-        </div>
-        <div id="system" class="text"></div>
-        <div id="menu" class="text">
-            <div id="tmenu" class="selectset"><div id="tmenul"></div><div id="tmenur"></div></div>
-            <div id="nmenu" class="selectset"><div id="nmenul"></div><div id="nmenur"></div></div>
-        </div>
-        <div id="yesno" class="selectset text"><div id="yesnol"></div><div id="yesnor"></div></div>
+        <div id="param" class="text"></div>
+        <div id="sentaku" class="selectset text"><div id="sentaku-l"></div><div id="sentaku-r"></div></div>
+        <div id="aite"></div>
+        <div id="message" class="text"></div>
     </div>
 </body>
 </html>
