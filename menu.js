@@ -10,18 +10,18 @@ const SMENU = ["ここ", "うえ", "みぎ", "ひだり", "した"];
 class Menu {
     mode;
     constructor(game) {
-        this.tsuyosa = new InfoMenu("#nmenul", this);
-        this.tsuyosa.getter = () => game.player.param_list();
-        this.tsuyosa.close = () => this.init();
+        this.tsuyosa = new InfoMenu("#nmenul");
+        this.tsuyosa.data.getter = () => game.player.param_list();
+        this.tsuyosa.data.closec = () => this.init();
 
         this.tmenu = new SelectMenu("#tmenu", TMENU);
-        this.tmenu.closec = () => this.close();
-        this.tmenu.enterc = (state) => {
-            switch(state) {
+        this.tmenu.data.closec = () => this.close();
+        this.tmenu.data.enterc = (menu) => {
+            switch(menu.tmenu.state) {
                 case 0:
                     break;
                 case 1:
-                    this.mode == "tsuyosa";
+                    this.mode = "tsuyosa";
                     this.tsuyosa.init();
                     break;
                 case 2:
@@ -54,14 +54,10 @@ class Menu {
     controller(key, game) {
         switch(this.mode) {
             case "top":
-                this.tmenu.controller(key, game);
+                this.tmenu.controller(key, game.menu);
                 break;
             case "tsuyosa":
-                this.tsuyosa.controller(key);
-                break;
-            case "z":
-            case "j":
-                nmenuController(key, game);
+                this.tsuyosa.controller(key, game.menu);
                 break;
             default:
                 break;
@@ -71,22 +67,26 @@ class Menu {
 
 class InfoMenu {
     getter = null;
+    data = {area: null, getter: null, closec: null};
+
     constructor(area) {
-        this.area = area;
+        this.data.area = area;
         $(area).hide();
     }
 
     init() {
-        content = l2s(this.getter());
-        $(this.area).text(content);
-        $(this.area).show();
+        content = l2s(this.data.getter());
+        $(this.data.area).text(content);
+        $(this.data.area).show();
     }
 
-    async close() {
+    async close(menu) {
         let next;
         return new Promise((resolve) => {
-            next = this.closec;
-            this.closec = null;
+            $(this.data.area).text("");
+            $(this.data.area).hide();
+            next = this.data.closec;
+            this.data.closec = null;
             resolve();
         }).then(() => {
             if (next != null) {
@@ -95,11 +95,11 @@ class InfoMenu {
         });
     }
 
-    async controller(key) {
+    async controller(key, menu) {
         switch(key) {
             case "l":
             case "s":
-                await this.close();
+                await this.close(menu);
                 break;
             default:
                 break;
@@ -108,73 +108,74 @@ class InfoMenu {
 }
 
 class SelectMenu {
+    data = {area: null, area_l:null, area_r: null, options: null, enterc: null, closec: null};
     state = 0;
 
     constructor(area, options) {
-        this.area = area;
-        this.area_l = area + "l";
-        this.area_r = area + "r";
-        this.options = options;
+        this.data.area = area;
+        this.data.area_l = area + "l";
+        this.data.area_r = area + "r";
+        this.data.options = options;
     }
 
     init() {
-        $(this.area_r).text(l2s(this.options));
-        $(this.area_r).show();
-        $(this.area).show();
+        $(this.data.area_r).text(l2s(this.data.options));
+        $(this.data.area_r).show();
+        $(this.data.area).show();
         this.state = 0;
         this.draw();
     }
 
     draw() {
-        const selector = Array(this.options.length).fill("　");;
+        const selector = Array(this.data.options.length).fill("　");;
         selector[this.state] = SELECTOR;
         content = l2s(selector);
-        $(this.area_l).text(content)
-        $(this.area_l).show();
+        $(this.data.area_l).text(content)
+        $(this.data.area_l).show();
     }
 
-    async enter() {
+    async enter(menu) {
         let next;
         return new Promise((resolve) => {
-            next = this.enterc;
-            this.enterc = null;
+            next = this.data.enterc;
+            this.data.enterc = null;
             resolve();
         }).then(() => {
             if (next != null) {
-                next();
+                next(menu);
             }
         });
     }
 
-    async close() {
+    async close(menu) {
         let next;
         return new Promise((resolve) => {
-            next = this.closec;
-            this.closec = null;
+            next = this.data.closec;
+            this.data.closec = null;
             resolve();
         }).then(() => {
             if (next != null) {
-                next();
+                next(menu);
             }
         });
     }
 
 
-    async controller(key, game) {
+    async controller(key, menu) {
         switch(key) {
             case "d":
                 this.state += 1;
-                if (this.options.length -1 < this.state) this.state = 0;
+                if (this.data.options.length -1 < this.state) this.state = 0;
                 this.draw();
                 break;
             case "u":
                 this.state -= 1;
-                if (this.state < 0) this.state = this.options.length -1;
+                if (this.state < 0) this.state = this.data.options.length -1;
                 this.draw();
                 break;
             case "r":
             case "e":
-                await this.enter();
+                await this.enter(menu);
                 break;
             case "s":
             case "l":
