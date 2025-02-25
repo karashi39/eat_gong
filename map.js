@@ -97,6 +97,7 @@ class Map {
         if (evt == 'd') {
             console.log("毒の沼地だ！");
             game.player.param.h -= 1;
+            damage();
             evt = 'e';
         }
 

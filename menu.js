@@ -10,19 +10,20 @@ const SMENU = ["ここ", "うえ", "みぎ", "ひだり", "した"];
 class Menu {
     mode;
     constructor(game) {
+        $("#menu").hide();
         this.tsuyosa = new InfoMenu("#nmenul");
-        this.tsuyosa.data.getter = () => game.player.param_list();
-        this.tsuyosa.data.closec = () => this.init();
+        this.tsuyosa.data.closec = () => this.mode = 'top';
 
         this.tmenu = new SelectMenu("#tmenu", TMENU);
-        this.tmenu.data.closec = () => this.close();
+        this.tmenu.data.closec = async () => await this.close();
         this.tmenu.data.enterc = (menu) => {
             switch(menu.tmenu.state) {
                 case 0:
                     break;
                 case 1:
                     this.mode = "tsuyosa";
-                    this.tsuyosa.init();
+                    let info = game.player.param_list();
+                    this.tsuyosa.init(info);
                     break;
                 case 2:
                     NMENU = game.player.jumon_list();
@@ -34,7 +35,7 @@ class Menu {
                     break;
             }
         };
-        $("#menu").hide();
+        console.log(this);
     }
 
     init() {
@@ -46,9 +47,6 @@ class Menu {
 
     close() {
         game.controller.state = 'map';
-        $("#menu").hide();
-        $("#nmenur").text("");
-        $("#nmenul").text("");
     }
 
     controller(key, game) {
@@ -66,7 +64,6 @@ class Menu {
 }
 
 class InfoMenu {
-    getter = null;
     data = {area: null, getter: null, closec: null};
 
     constructor(area) {
@@ -74,13 +71,15 @@ class InfoMenu {
         $(area).hide();
     }
 
-    init() {
-        content = l2s(this.data.getter());
+    init(info) {
+        content = l2s(info);
         $(this.data.area).text(content);
         $(this.data.area).show();
     }
 
     async close(menu) {
+        console.log("close");
+        console.log(menu);
         let next;
         return new Promise((resolve) => {
             $(this.data.area).text("");
@@ -91,6 +90,7 @@ class InfoMenu {
         }).then(() => {
             if (next != null) {
                 next();
+                console.log(menu);
             }
         });
     }
